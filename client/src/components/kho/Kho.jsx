@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { Image, Tag, Row, Col, Card, Space, Table, Button, Avatar } from 'antd'
+import { Image, Tag, Row, Col, Card, Space, Table, Button, Avatar, message } from 'antd'
 import { useData } from '../../context/AppContext'
 import moment from 'moment';
+import { BACK_END_URL } from '../../context/const';
 
 const Kho = () => {
     const {kho, user, fetchKho} = useData();
@@ -50,15 +51,28 @@ const Kho = () => {
                 return <Tag color='blue'>Để tủ lạnh</Tag>
             }
         },
-        // {
-        //     title: 'Thao tác',
-        //     render: (text, record) => (
-        //         <div onClick={e => e.stopPropagation()}>
-        //               <Button size='small' style={{marginLeft: 5}} type='danger'>Xóa</Button>
-        //         </div>
-        //       ),
-        // },
+        {
+            title: 'Thao tác',
+            render: (text, record) => (
+                <div onClick={e => e.stopPropagation()}>
+                      <Button size='small' onClick={() => handleDelete(record.id)} style={{marginLeft: 5}} type='danger'>Xóa</Button>
+                </div>
+              ),
+        },
     ]
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await fetch(`${BACK_END_URL}store/delete/${id}`)
+            const data = await res.json()
+            if(data.success === true){
+                fetchKho(user[0].id)
+                message.success('Xóa thành công')
+            }
+        } catch (error) {
+            message.warning('Thất bại', error.message)
+        }
+    }
 
     return (
         <div className="tabled">
