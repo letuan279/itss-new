@@ -58,19 +58,20 @@ const NauAn = () => {
             render: item => moment(item).format("YYYY-MM-DD")
         },
         {
-            title: 'Trạng thái',
+            title: 'Bữa nấu',
             dataIndex: 'state',
             key: 'state',
             render: (item) => {
-                if(item === 0) return <Tag color='default'>Chưa nấu</Tag>
-                return <Tag color='green'>Đã nấu</Tag>
+                if(item === 0) return <Tag color='orange'>Bữa sáng</Tag>
+                if(item === 1) return <Tag color='blue'>Bữa trưa</Tag>
+                if(item === 2) return <Tag color='green'>Bữa tối</Tag>
+                return <Tag color='green'>hehe</Tag>
             }
         },
         {
             title: 'Thao tác',
             render: (text, record) => (
                 <div onClick={e => e.stopPropagation()}>
-                      <Button size='small' style={{marginLeft: 5}} type='primary'>Nấu</Button>
                       <Button size='small' style={{marginLeft: 5}} type='danger'>Xóa</Button>
                 </div>
               )

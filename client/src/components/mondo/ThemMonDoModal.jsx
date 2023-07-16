@@ -8,14 +8,13 @@ import { useData } from '../../context/AppContext';
 import moment from 'moment';
 import TextArea from 'antd/lib/input/TextArea';
 
-const NauModal = (props) => {
+const ThemMonDoModal = (props) => {
     const {
         editModalVisible, 
         setEditModalVisible,
-        idRecipe
     } = props
 
-    const { user, fetchNauAn } = useData()
+    const { user, fetchMonDo, monDo } = useData()
 
     const AddForm = ({ visible, onCreate, onCancel, initialValues }) => {
         const [form] = Form.useForm();
@@ -29,40 +28,53 @@ const NauModal = (props) => {
                 });
             }}>
                 <Form form={form} layout="vertical">
-                        <Form.Item
-                            label="Ngày nấu"
-                            name="date"
-                            rules={[
-                                { required: true, message: "Hãy điền trường này" }
+                    <Form.Item
+                        label="Tên món đồ"
+                        name="name"
+                        rules={[
+                            { required: true, message: "Hãy điền trường này" }
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Đơn vị"
+                        name="unit"
+                        rules={[
+                            { required: true, message: "Hãy điền trường này" }
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Ảnh"
+                        name="image"
+                        rules={[
+                            { required: true, message: "Hãy điền trường này" }
+                        ]}
+                    >
+                        <TextArea/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Loại"
+                        name="type"
+                        rules={[
+                            { required: true, message: "Hãy điền trường này" }
+                        ]}
+                    >
+                        <Select
+                            options={[
+                                {
+                                    label: "Món ăn",
+                                    value: 1
+                                },
+                                {
+                                    label: "Thực phẩm",
+                                    value: 0
+                                }
                             ]}
-                            initialValue={moment()}
-                        >
-                            <DatePicker/>
-                        </Form.Item>
-                        <Form.Item
-                            label="Bữa nấu"
-                            name="state"
-                            rules={[
-                                { required: true, message: "Hãy điền trường này" }
-                            ]}
-                        >
-                            <Select
-                                options={[
-                                    {
-                                        label: "Bữa sáng",
-                                        value: 0
-                                    },
-                                    {
-                                        label: "Bữa trưa",
-                                        value: 1
-                                    },
-                                    {
-                                        label: "Bữa tối",
-                                        value: 2
-                                    }
-                                ]}
-                            ></Select>
-                        </Form.Item>
+                        ></Select>
+                    </Form.Item>
                 </Form>
             </Modal>
         );
@@ -71,10 +83,8 @@ const NauModal = (props) => {
     const handleAddSubmit = async (values) => {
         const fetchData = async () => {
         try {
-            values.date = values.date.format("YYYY-MM-DD")
-            values.idRecipe = idRecipe
             values.idUser = user[0].id
-            const res = await fetch(`${BACK_END_URL}cook/add`, {
+            const res = await fetch(`${BACK_END_URL}food/add`, {
                 method: "POST",
                 mode: "cors",
                 cache: "no-cache",
@@ -86,7 +96,7 @@ const NauModal = (props) => {
             });
             const data = await res.json();
             if(data.success === true){
-                await fetchNauAn(user[0].id)
+                await fetchMonDo(user[0].id)
                 message.success('Tạo thành công!')
                 setEditModalVisible(false);
             }
@@ -109,4 +119,4 @@ const NauModal = (props) => {
     )
 }
 
-export default NauModal
+export default ThemMonDoModal

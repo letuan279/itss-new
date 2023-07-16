@@ -8,14 +8,14 @@ import { useData } from '../../context/AppContext';
 import moment from 'moment';
 import TextArea from 'antd/lib/input/TextArea';
 
-const NauModal = (props) => {
+const UpdateUserModal = (props) => {
     const {
         editModalVisible, 
         setEditModalVisible,
-        idRecipe
+        selectedMarket
     } = props
 
-    const { user, fetchNauAn } = useData()
+    const { user, fetchDiCho, monDo, group, fetchUserNormal } = useData()
 
     const AddForm = ({ visible, onCreate, onCancel, initialValues }) => {
         const [form] = Form.useForm();
@@ -28,41 +28,34 @@ const NauModal = (props) => {
                     console.log('Validate Failed:', info);
                 });
             }}>
-                <Form form={form} layout="vertical">
-                        <Form.Item
-                            label="Ngày nấu"
-                            name="date"
-                            rules={[
-                                { required: true, message: "Hãy điền trường này" }
-                            ]}
-                            initialValue={moment()}
-                        >
-                            <DatePicker/>
-                        </Form.Item>
-                        <Form.Item
-                            label="Bữa nấu"
-                            name="state"
-                            rules={[
-                                { required: true, message: "Hãy điền trường này" }
-                            ]}
-                        >
-                            <Select
-                                options={[
-                                    {
-                                        label: "Bữa sáng",
-                                        value: 0
-                                    },
-                                    {
-                                        label: "Bữa trưa",
-                                        value: 1
-                                    },
-                                    {
-                                        label: "Bữa tối",
-                                        value: 2
-                                    }
-                                ]}
-                            ></Select>
-                        </Form.Item>
+                <Form form={form} layout="vertical" initialValues={initialValues}>
+                <Form.Item
+                        label="Tên đăng nhập"
+                        name="username"
+                        rules={[
+                            { required: true, message: "Hãy điền trường này" }
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Mật khẩu"
+                        name="password"
+                        rules={[
+                            { required: true, message: "Hãy điền trường này" }
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Tên người dùng"
+                        name="name"
+                        rules={[
+                            { required: true, message: "Hãy điền trường này" }
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
                 </Form>
             </Modal>
         );
@@ -71,10 +64,7 @@ const NauModal = (props) => {
     const handleAddSubmit = async (values) => {
         const fetchData = async () => {
         try {
-            values.date = values.date.format("YYYY-MM-DD")
-            values.idRecipe = idRecipe
-            values.idUser = user[0].id
-            const res = await fetch(`${BACK_END_URL}cook/add`, {
+            const res = await fetch(`${BACK_END_URL}admin/account/update/${selectedMarket.id}`, {
                 method: "POST",
                 mode: "cors",
                 cache: "no-cache",
@@ -86,8 +76,8 @@ const NauModal = (props) => {
             });
             const data = await res.json();
             if(data.success === true){
-                await fetchNauAn(user[0].id)
-                message.success('Tạo thành công!')
+                fetchUserNormal()
+                message.success('Cập nhật thành công!')
                 setEditModalVisible(false);
             }
           } catch (error) {
@@ -105,8 +95,9 @@ const NauModal = (props) => {
             onCancel={() => {
                 setEditModalVisible(false);
             }}
+            initialValues={selectedMarket}
         />
     )
 }
 
-export default NauModal
+export default UpdateUserModal

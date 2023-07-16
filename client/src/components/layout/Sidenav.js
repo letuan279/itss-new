@@ -165,6 +165,19 @@ function Sidenav({ color }) {
             <span className="label">Món đồ</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="7">
+          <NavLink to="/quan-tri">
+            <span
+              className="icon"
+              style={{
+                background: page === "quan-tri" ? color : "",
+              }}
+            >
+              {dashboard}
+            </span>
+            <span className="label">Quản trị</span>
+          </NavLink>
+        </Menu.Item>
       </Menu>
     </>
   );

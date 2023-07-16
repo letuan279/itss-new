@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useData } from '../../context/AppContext'
-import { Image, Tag, Row, Col, Card, Space, Table, Button, Avatar } from 'antd'
+import { Image, Tag, Row, Col, Card, Space, Table, Button, Avatar, message } from 'antd'
+import ThemMonDoModal from './ThemMonDoModal'
+import { BACK_END_URL } from '../../context/const'
 
 const MonDo = () => {
 
@@ -44,12 +46,30 @@ const MonDo = () => {
             title: 'Thao tác',
             render: (text, record) => (
               <div onClick={e => e.stopPropagation()}>
-                    <Button size='small' style={{marginLeft: 5}} type='primary'>Sửa</Button>
-                    <Button size='small' style={{marginLeft: 5}} type='danger'>Xóa</Button>
+                    <Button size='small' onClick={() => handleDelete(record.id)} style={{marginLeft: 5}} type='danger'>Xóa</Button>
               </div>
             ),
         }
     ]
+
+    const handleDelete = async (id) => {
+        console.log(id);
+        try {
+            const res = await fetch(`${BACK_END_URL}food/delete/${id}`)
+            const data = await res.json()
+            if(data.success === true){
+                fetchMonDo(user[0].id)
+                message.success('Xóa thành công')
+            }
+        } catch (error) {
+            message.warning('Thất bại', error.message)
+        }
+    }
+
+    const [addModalVisible, setAddModalVisible] = useState(false);
+    const handleAdd = () => {
+    setAddModalVisible(true);
+    };
 
     return (
         <div className="tabled">
@@ -62,7 +82,7 @@ const MonDo = () => {
                     extra={
                         <Space>
                             <Space>
-                              <Button type="primary" onClick={() => {}}>Thêm món đồ</Button>
+                              <Button type="primary" onClick={handleAdd}>Thêm món đồ</Button>
                             </Space>
                         </Space>
                     }>
@@ -74,6 +94,10 @@ const MonDo = () => {
                     />
                     </Card>
                 </Col>
+                { addModalVisible && <ThemMonDoModal 
+                  editModalVisible={addModalVisible}
+                  setEditModalVisible={setAddModalVisible}
+                />}
             </Row>
         </div>
     )

@@ -40,5 +40,25 @@ module.exports = {
             console.error('Error: ', error);
             return res.json({ success: false });
         }
+    },
+    delete: async (req, res) => {
+        const { id } = req.params;
+        try {
+            const query = `DELETE FROM store WHERE id = ${id}`;
+            await new Promise((resolve, reject) => {
+                connection.query(query, (error) => {
+                    if (error) {
+                        console.error('Error deleting store: ', error);
+                        reject(error);
+                    } else {
+                        resolve();
+                    }
+                });
+            });
+            return res.json({ success: true });
+        } catch (error) {
+            console.error('Error deleting store: ', error);
+            return res.json({ success: false });
+        }
     }
 }

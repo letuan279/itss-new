@@ -13,6 +13,8 @@ const AppContextProvider = ({ children }) => {
     const [diCho, setDiCho] = useState([])
     const [kho, setKho] = useState([])
     const [nauAn, setNauAn] = useState([])
+    const [diChoShare, setDiChoShare] = useState([])
+    const [userNormal, setUserNormal] = useState([])
 
     const history = useHistory();
 
@@ -52,7 +54,7 @@ const AppContextProvider = ({ children }) => {
 
     const fetchNhom = async () => {
         try {
-            const res = await fetch(`${BACK_END_URL}group`)
+            const res = await fetch(`${BACK_END_URL}group/${user[0].id}`)
             const data = await res.json();
             setGroup(data.data.filter(item => {
                 const itemMemberIds = item.members.map(i => i.id)
@@ -139,6 +141,28 @@ const AppContextProvider = ({ children }) => {
         }
     }
 
+    const fetchDiChoShare = async (groupId) => {
+        try {
+            const res = await fetch(`${BACK_END_URL}group/market-share/${groupId}`)
+            const data = await res.json();
+            setDiChoShare(data.data)
+        } catch (error) {
+            console.log(error.message);
+            message.error(error.message)
+        }
+    }
+
+    const fetchUserNormal = async () => {
+        try {
+            const res = await fetch(`${BACK_END_URL}admin/account`)
+            const data = await res.json();
+            setUserNormal(data.data)
+        } catch (error) {
+            console.log(error.message);
+            message.error(error.message)
+        }
+    }
+
     return (
         <AppContext.Provider value={
             {
@@ -157,7 +181,11 @@ const AppContextProvider = ({ children }) => {
                 fetchKho,
                 kho,
                 fetchNauAn,
-                nauAn
+                nauAn,
+                fetchDiChoShare,
+                diChoShare,
+                fetchUserNormal,
+                userNormal
             }
         }>
             {children}

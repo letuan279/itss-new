@@ -30,11 +30,11 @@ module.exports = {
         }
     },
     add: async (req, res) => {
-        const { date, idUser, idRecipe } = req.body
-        const query = `INSERT INTO cook (idRecipe, state, date, idUser) VALUES (?, 0, ?, ?)`
+        const { date, idUser, idRecipe, state } = req.body
+        const query = `INSERT INTO cook (idRecipe, date, idUser, state) VALUES (?, ?, ?, ?)`
         try {
             await new Promise((resolve, reject) => {
-                connection.query(query, [idRecipe, date, idUser],
+                connection.query(query, [idRecipe, date, idUser, state],
                     (error, results, fields) => {
                         if (error) {
                             console.error('Error add cook: ', error);
@@ -49,6 +49,26 @@ module.exports = {
             return res.json({ success: false, message: 'Error adding cook' })
         }
 
+    },
+    delete: async (req, res) => {
+        const { id } = req.params;
+        try {
+            const query = `DELETE FROM cook WHERE id = ${id}`;
+            await new Promise((resolve, reject) => {
+                connection.query(query, (error) => {
+                    if (error) {
+                        console.error('Error deleting cook: ', error);
+                        reject(error);
+                    } else {
+                        resolve();
+                    }
+                });
+            });
+            return res.json({ success: true });
+        } catch (error) {
+            console.error('Error deleting cook: ', error);
+            return res.json({ success: false });
+        }
     }
 
 }

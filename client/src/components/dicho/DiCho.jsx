@@ -4,6 +4,7 @@ import { useData } from '../../context/AppContext'
 import moment from 'moment'
 import ThemDiChoModal from './ThemDiChoModal'
 import MuaDiChoModal from './MuaDiChoModal'
+import ShareModal from './ShareModal'
 
 const DiCho = () => {
     const {user, diCho, fetchDiCho, fetchMonDo} = useData()
@@ -75,11 +76,15 @@ const DiCho = () => {
             title: 'Thao tác',
             render: (text, record) => (
                 <div onClick={e => e.stopPropagation()}>
-                      <Button onClick={() => handleMua(record.id)} size='small' style={{marginLeft: 5}} type='primary'>Mua</Button>
+                      <Button onClick={() => handleMua(record.id)} size='small' style={{marginRight: 5}} type='primary'>Mua</Button>
+                      <Button onClick={() => handleShare(record.id)} size='small' style={{marginLeft: 5}} type='primary'  style={{ background: "green", borderColor: "green" }}>Chia sẻ</Button>
                 </div>
               ),
         },
     ]
+
+    
+
     const [selectedDate, setSelectedDate] = useState(moment());
     const filteredData = diCho.filter((item) => {
         const itemDate = moment(item.dateToBuy);
@@ -97,6 +102,12 @@ const DiCho = () => {
         setSelectedMarket(idMarket)
         setMuaModalVisible(true);
     };
+
+    const [shareModalVisible, setShareModalVisible] = useState(false);
+    const handleShare = async (id) => {
+        setSelectedMarket(id)
+        setShareModalVisible(true)
+    }
 
     return (
         <div className="tabled">
@@ -131,6 +142,11 @@ const DiCho = () => {
                 { muaModalVisible && <MuaDiChoModal 
                   editModalVisible={muaModalVisible}
                   setEditModalVisible={setMuaModalVisible}
+                  selectedMarket={selectedMarket}
+                />}
+                { shareModalVisible && <ShareModal 
+                  editModalVisible={shareModalVisible}
+                  setEditModalVisible={setShareModalVisible}
                   selectedMarket={selectedMarket}
                 />}
             </Row>

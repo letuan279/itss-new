@@ -12,6 +12,7 @@ import CongThuc from "./components/congthuc/CongThuc";
 import DiCho from "./components/dicho/DiCho";
 import NauAn from "./components/nauan/NauAn";
 import Kho from "./components/kho/Kho";
+import Admin from "./components/admin/Admin";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/di-cho" exact component={DiCho} />
             <Route path="/nau-an" exact component={NauAn} />
             <Route path="/kho" exact component={Kho} />
+            <Route path="/quan-tri" exact component={Admin} />
             <Redirect from="*" to="/nhom" />
           </Main>
         </Switch>
