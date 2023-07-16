@@ -76,7 +76,8 @@ const DiCho = () => {
             title: 'Thao tác',
             render: (text, record) => (
                 <div onClick={e => e.stopPropagation()}>
-                      <Button onClick={() => handleMua(record.id)} size='small' style={{marginRight: 5}} type='primary'>Mua</Button>
+                      {record.state === 1 ? <Button disabled onClick={() => handleMua(record.id)} size='small' style={{marginRight: 5}} type='primary'>Mua</Button> :
+                      <Button onClick={() => handleMua(record.id)} size='small' style={{marginRight: 5}} type='primary'>Mua</Button>}
                       <Button onClick={() => handleShare(record.id)} size='small' style={{marginLeft: 5}} type='primary'  style={{ background: "green", borderColor: "green" }}>Chia sẻ</Button>
                 </div>
               ),

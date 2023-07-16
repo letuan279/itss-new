@@ -132,6 +132,13 @@ function Header({
 
   const namePage = (input) => {
     if (input === "nhom") return "Danh sách nhóm"
+    if (input.includes("nhom/")) return "Chi tiết nhóm"
+    if (input === "di-cho") return "Đi chợ"
+    if (input === "nau-an") return "Nấu ăn"
+    if (input === "kho") return "Kho"
+    if (input === "cong-thuc") return "Công thức nấu ăn"
+    if (input === "mon-do") return "Cài đặt món đồ"
+    if (input === "quan-tri") return "Quản trị tài khoản"
     else return "hehe"
   }
 
@@ -149,7 +156,7 @@ function Header({
   const data = [
     {
       title: "",
-      description: <Button style={{ width: "100%" }} onClick={handleLogout} >Đăng xuất</Button>,
+      description: <Button style={{ width: "100%", backgroundColor: "red", color: "white" }} onClick={handleLogout} >Đăng xuất</Button>,
     }
   ];
 
@@ -169,7 +176,6 @@ function Header({
       )}
     />
   );
-
   return (
     <>
       <Row gutter={[24, 0]}>
@@ -203,14 +209,14 @@ function Header({
           </Dropdown>
           <div className="btn-sign-in">
             {profile}
-            <span>{user?.username}</span>
+            <span>{user[0]?.name}</span>
           </div>
 
-          {user?.role === 1 &&
-            <Tag color="green" >Tổ trưởng</Tag>
+          {user[0]?.role === 1 &&
+            <Tag color="green" >Admin</Tag>
           }
-          {user?.role === 0 &&
-            <Tag color="orange" >Cán bộ y tế </Tag>
+          {user[0]?.role === 0 &&
+            <Tag color="orange" >Dân thường</Tag>
           }
         </Col>
       </Row>

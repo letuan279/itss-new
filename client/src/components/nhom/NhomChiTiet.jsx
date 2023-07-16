@@ -124,11 +124,15 @@ const NhomChiTiet = (props) => {
         },
         {
             title: 'Thao tác',
-            render: (text, record) => (
-                <div onClick={e => e.stopPropagation()}>
-                      <Button onClick={() => handleMua(record.id)} size='small' style={{marginLeft: 5}} type='primary'>Mua</Button>
-                </div>
-              ),
+            render: (text, record) => {
+                if(record.state === 0) return (
+                        <div onClick={e => e.stopPropagation()}>
+                            <Button onClick={() => handleMua(record.id)} size='small' style={{marginLeft: 5}} type='primary'>Mua</Button>
+                        </div>)
+                return (<div onClick={e => e.stopPropagation()}>
+                            <Button disabled onClick={() => handleMua(record.id)} size='small' style={{marginLeft: 5}} type='primary'>Mua</Button>
+                        </div>)
+            },
         },
     ]
 
@@ -161,7 +165,7 @@ const NhomChiTiet = (props) => {
                 <Card
                     bordered={false}
                     className="criclebox tablespace mb-24"
-                    title={<>Danh sách các món đồ cần mua <DatePicker
+                    title={<>Danh sách chia sẻ các món đồ cần mua <DatePicker
                         value={selectedDate} 
                         onChange={(date) => setSelectedDate(date)}
                         /></>}

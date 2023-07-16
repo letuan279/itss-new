@@ -20,7 +20,7 @@ const MuaDiChoModal = (props) => {
     const AddForm = ({ visible, onCreate, onCancel, initialValues }) => {
         const [form] = Form.useForm();
         return (
-            <Modal visible={visible} title="Thêm nhóm mới" okText="Lưu" cancelText="Hủy" onCancel={onCancel} onOk={() => {
+            <Modal visible={visible} title="Xác nhận mua" okText="Lưu" cancelText="Hủy" onCancel={onCancel} onOk={() => {
                 form.validateFields().then((values) => {
                     form.resetFields();
                     onCreate(values);

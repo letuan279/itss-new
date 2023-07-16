@@ -20,7 +20,7 @@ const NauModal = (props) => {
     const AddForm = ({ visible, onCreate, onCancel, initialValues }) => {
         const [form] = Form.useForm();
         return (
-            <Modal visible={visible} title="Thêm nhóm mới" okText="Lưu" cancelText="Hủy" onCancel={onCancel} onOk={() => {
+            <Modal visible={visible} title="Lên kế hoạch nấu" okText="Lưu" cancelText="Hủy" onCancel={onCancel} onOk={() => {
                 form.validateFields().then((values) => {
                     form.resetFields();
                     onCreate(values);

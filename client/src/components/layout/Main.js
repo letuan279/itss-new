@@ -40,6 +40,8 @@ function Main({ children }) {
     }
   }, [user])
 
+  console.log(user);
+
   return (
     <Layout
       className={`layout-dashboard ${pathname === "profile" ? "layout-profile" : ""

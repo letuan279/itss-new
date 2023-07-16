@@ -50,14 +50,14 @@ const Kho = () => {
                 return <Tag color='blue'>Để tủ lạnh</Tag>
             }
         },
-        {
-            title: 'Thao tác',
-            render: (text, record) => (
-                <div onClick={e => e.stopPropagation()}>
-                      <Button size='small' style={{marginLeft: 5}} type='danger'>Xóa</Button>
-                </div>
-              ),
-        },
+        // {
+        //     title: 'Thao tác',
+        //     render: (text, record) => (
+        //         <div onClick={e => e.stopPropagation()}>
+        //               <Button size='small' style={{marginLeft: 5}} type='danger'>Xóa</Button>
+        //         </div>
+        //       ),
+        // },
     ]
 
     return (
@@ -67,11 +67,11 @@ const Kho = () => {
                 <Card
                     bordered={false}
                     className="criclebox tablespace mb-24"
-                    title="Danh sách dự định nấu"
+                    title="Danh sách món đồ trong kho"
                     extra={
                         <Space>
                             <Space>
-                              <Button type="primary" onClick={() => {}}>Thêm</Button>
+                              {/* <Button type="primary" onClick={() => {}}>Thêm</Button> */}
                             </Space>
                         </Space>
                     }>

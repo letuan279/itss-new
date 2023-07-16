@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useData } from '../../context/AppContext'
-import { Image, Tag, Row, Col, Card, Space, Table, Button, Avatar, DatePicker } from 'antd'
+import { Image, Tag, Row, Col, Card, Space, Table, Button, Avatar, DatePicker, message } from 'antd'
 import moment from 'moment'
+import { BACK_END_URL } from '../../context/const'
 
 const NauAn = () => {
     const { user, nauAn, congThuc, fetchNauAn, fetchCongThuc, fetchKho, kho } = useData()
@@ -72,11 +73,24 @@ const NauAn = () => {
             title: 'Thao tác',
             render: (text, record) => (
                 <div onClick={e => e.stopPropagation()}>
-                      <Button size='small' style={{marginLeft: 5}} type='danger'>Xóa</Button>
+                      <Button size='small' onClick={() => handleDelete(record.id)} style={{marginLeft: 5}} type='danger'>Xóa</Button>
                 </div>
               )
         }
     ]
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await fetch(`${BACK_END_URL}cook/delete/${id}`)
+            const data = await res.json()
+            if(data.success === true){
+                fetchNauAn(user[0].id)
+                message.success('Xóa thành công')
+            }
+        } catch (error) {
+            message.warning('Thất bại', error.message)
+        }
+    }
 
     const searchInKho = (name) => {
         const result = kho.filter(item => item.food.name === name && diffInDays(item.expire, moment()) >= 0 )
