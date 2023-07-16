@@ -22,12 +22,12 @@ router.post('/group/market-share/add', groupController.addShare);
 
 // member
 router.post('/member/add', memberController.add)
-router.post('/member/delete', memberController.delete)
+router.delete('/member/delete', memberController.delete)
 
 // food
 router.post('/food', foodController.getAll);
 router.post('/food/add', foodController.add);
-router.get('/food/delete/:idFood', foodController.delete);
+router.delete('/food/delete/:idFood', foodController.delete);
 
 // market
 router.get('/market/:idUser', marketController.getAll);
@@ -40,17 +40,17 @@ router.post('/recipe/add', recipeController.add)
 
 // store
 router.get('/store/:idUser', storeController.getAll)
-router.get('/store/delete/:id', storeController.delete)
+router.delete('/store/delete/:id', storeController.delete)
 
 // cook
 router.get('/cook/:idUser', cookController.getAll)
 router.post('/cook/add', cookController.add)
-router.get('/cook/delete/:id', cookController.delete)
+router.delete('/cook/delete/:id', cookController.delete)
 
 // admin
 router.post('/admin/account/add', adminController.add);
 router.get('/admin/account', adminController.getAll);
 router.post('/admin/account/update/:id', adminController.update);
-router.get('/admin/account/delete/:id', adminController.delete);
+router.delete('/admin/account/delete/:id', adminController.delete);
 
 module.exports = router;
