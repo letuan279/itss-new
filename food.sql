@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2023 at 09:54 AM
+-- Generation Time: Jul 16, 2023 at 04:17 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -34,6 +34,15 @@ CREATE TABLE `cook` (
   `date` date NOT NULL,
   `idUser` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cook`
+--
+
+INSERT INTO `cook` (`id`, `idRecipe`, `state`, `date`, `idUser`) VALUES
+(3, 6, 0, '2023-07-16', 1),
+(4, 6, 0, '2023-07-16', 1),
+(5, 6, 1, '2023-07-16', 1);
 
 -- --------------------------------------------------------
 
@@ -98,6 +107,15 @@ CREATE TABLE `groupmarket` (
   `idMarket` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `groupmarket`
+--
+
+INSERT INTO `groupmarket` (`id`, `idGroup`, `idMarket`) VALUES
+(1, 1, 12),
+(2, 1, 13),
+(3, 1, 14);
+
 -- --------------------------------------------------------
 
 --
@@ -126,7 +144,10 @@ INSERT INTO `market` (`id`, `idUser`, `dateToBuy`, `dateBought`, `idUserBought`,
 (8, 1, '2023-07-16', '2023-07-16', 1, 1, 5, 1),
 (9, 1, '2023-07-16', '2023-07-16', 1, 1, 4, 5),
 (10, 1, '2023-07-16', '2023-07-16', 1, 1, 1, 3),
-(11, 1, '2023-07-16', '2023-07-16', 1, 1, 3, 5);
+(11, 1, '2023-07-16', '2023-07-16', 1, 1, 3, 5),
+(12, 1, '2023-07-16', '2023-07-16', 2, 1, 9, 2),
+(13, 1, '2023-07-16', NULL, NULL, 0, 3, 5),
+(14, 1, '2023-07-16', NULL, NULL, 0, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -250,7 +271,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `role`, `name`) VALUES
 (1, 'q', '1', 1, 'ngocars'),
-(2, 'tuan', '1234', 0, 'tuanle');
+(2, 'duong', '1234', 0, 'Duong'),
+(5, 'thinh', '1234', 0, 'thinh1234');
 
 --
 -- Indexes for dumped tables
@@ -340,13 +362,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cook`
 --
 ALTER TABLE `cook`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `group`
@@ -358,13 +380,13 @@ ALTER TABLE `group`
 -- AUTO_INCREMENT for table `groupmarket`
 --
 ALTER TABLE `groupmarket`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `market`
 --
 ALTER TABLE `market`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `member`
@@ -388,13 +410,13 @@ ALTER TABLE `recipematerial`
 -- AUTO_INCREMENT for table `store`
 --
 ALTER TABLE `store`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
