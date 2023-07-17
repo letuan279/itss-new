@@ -40,7 +40,13 @@ const Kho = () => {
             title: 'Ngày hết hạn',
             dataIndex: 'expire',
             key: 'expire',
-            render: item => moment(item).format("YYYY-MM-DD")
+            render: item => {
+                if(moment(item).diff(moment(), 'days') < 3) {
+                    return <><Tag color='red'>{"Còn " + moment(item).diff(moment(), 'days') + ' ngày'}</Tag>🔥</>
+                }
+                return "Còn " + moment(item).diff(moment(), 'days') + ' ngày'
+            },
+            sorter: (a, b) => moment(b.expire) - moment(a.expire)
         },
         {
             title: 'Nơi để',

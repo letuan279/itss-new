@@ -165,7 +165,7 @@ function Sidenav({ color }) {
             <span className="label">Món đồ</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="7">
+        {user[0].role === 1 && <Menu.Item key="7">
           <NavLink to="/quan-tri">
             <span
               className="icon"
@@ -177,7 +177,7 @@ function Sidenav({ color }) {
             </span>
             <span className="label">Quản trị</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item>}
       </Menu>
     </>
   );

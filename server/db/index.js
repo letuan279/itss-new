@@ -1,18 +1,34 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2')
 
-const connection = mysql.createConnection({
+const config = {
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'food'
-});
+}
 
-connection.connect((error) => {
-    if (error) {
-        console.error('Error connecting to database: ', error);
-        return;
+class Database {
+    constructor() {
+        this.connect()
     }
-    console.log('Connected to database successfully!');
-});
 
-module.exports = connection
+    async connect(type = 'MySQL') {
+        try {
+            this.connection = mysql.createConnection(config)
+            console.log("DB connected");
+        } catch (error) {
+            console.log(error.message || "Cannot connect to DB");
+        }
+    }
+
+    static getInstance() {
+        if (!Database.instance) {
+            Database.instance = new Database()
+        }
+
+        return Database.instance
+    }
+}
+
+const instanceMySQL = Database.getInstance()
+module.exports = instanceMySQL.connection
