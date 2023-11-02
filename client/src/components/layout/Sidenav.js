@@ -100,6 +100,7 @@ function Sidenav({ color }) {
             <span className="label">Nhóm</span>
           </NavLink>
         </Menu.Item>
+
         <Menu.Item key="2">
           <NavLink to="/di-cho">
             <span
@@ -113,19 +114,9 @@ function Sidenav({ color }) {
             <span className="label">Đi chợ</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="3">
-          <NavLink to="/nau-an">
-            <span
-              className="icon"
-              style={{
-                background: page === "nau-an" ? color : "",
-              }}
-            >
-              {dashboard}
-            </span>
-            <span className="label">Nấu ăn</span>
-          </NavLink>
-        </Menu.Item>
+
+
+
         <Menu.Item key="4">
           <NavLink to="/kho">
             <span
@@ -139,6 +130,7 @@ function Sidenav({ color }) {
             <span className="label">Kho</span>
           </NavLink>
         </Menu.Item>
+
         <Menu.Item key="5">
           <NavLink to="/cong-thuc">
             <span
@@ -152,6 +144,22 @@ function Sidenav({ color }) {
             <span className="label">Công thức nấu ăn</span>
           </NavLink>
         </Menu.Item>
+
+        <Menu.Item key="3">
+          <NavLink to="/nau-an">
+            <span
+              className="icon"
+              style={{
+                background: page === "nau-an" ? color : "",
+              }}
+            >
+              {dashboard}
+            </span>
+            <span className="label">Nấu ăn</span>
+          </NavLink>
+        </Menu.Item>
+
+
         <Menu.Item key="6">
           <NavLink to="/mon-do">
             <span
